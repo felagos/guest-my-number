@@ -6,26 +6,37 @@ interface Props {
 }
 
 export const Button = ({ children }: Props) => {
+
 	return (
-		<Pressable>
-			<View style={styles.container}>
+		<View style={styles.buttonOuterContainer}>
+			<Pressable style={({ pressed }) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer} android_ripple={styles.ripple}>
 				<Text style={styles.btnText}>{children}</Text>
-			</View>
-		</Pressable>
+			</Pressable>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#72063c',
+	buttonOuterContainer: {
 		borderRadius: 28,
+		margin: 4,
+		overflow: 'hidden'
+	},
+	buttonInnerContainer: {
+		backgroundColor: '#72063c',
 		paddingVertical: 8,
 		paddingHorizontal: 16,
 		elevation: 2,
-		margin: 4
-	}, 
+
+	},
 	btnText: {
 		color: '#ffffffff',
 		textAlign: 'center'
+	},
+	ripple: {
+		color: '#640233'
+	},
+	pressed: {
+		opacity: 0.75,
 	}
 })
