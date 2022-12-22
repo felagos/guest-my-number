@@ -4,6 +4,9 @@ import { NumberContainer } from '../components/game/NumberContainer';
 import { Title } from "../components/ui/Title";
 import { generateRandomBetween } from '../utils/random.util';
 import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+import { Colors } from '../constants/color';
+import { ButtonsContainer } from '../components/ui/ButtonsContainer';
 
 interface Props {
 	userNumber: number;
@@ -49,13 +52,13 @@ export const GameScreen = ({ userNumber, onGameOver }: Props) => {
 			<NumberContainer>
 				{currentGuess}
 			</NumberContainer>
-			<View>
-				<Text>Higher or lower ?</Text>
-				<View>
+			<Card>
+				<Text style={styles.instruction}>Higher or lower ?</Text>
+				<ButtonsContainer style={styles.btnContainer}>
 					<Button onPress={nextGuess("lower")}>-</Button>
 					<Button onPress={nextGuess("greater")}>+</Button>
-				</View>
-			</View>
+				</ButtonsContainer>
+			</Card>
 			<View>
 				<Text>LOG ROUNDS</Text>
 			</View>
@@ -68,5 +71,12 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 24
+	},
+	instruction: {
+		color: Colors.white,
+		fontSize: 24
+	},
+	btnContainer: {
+		marginTop: 20
 	}
 })

@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, View, Alert } from "react-native";
+import { StyleSheet, TextInput, View, Alert, Text } from "react-native";
 import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
+import { Title } from "../components/ui/Title";
 import { Colors } from "../constants/color";
 
 interface Props {
@@ -15,9 +17,9 @@ export const StartGameScreen = ({ onPickNumber }: Props) => {
 	const confirmInput = () => {
 		const number = parseInt(enteredNumber);
 
-		if(!/[0-9]{1,2}/.test(enteredNumber)) 
+		if (!/[0-9]{1,2}/.test(enteredNumber))
 			return Alert.alert("Invalid number !", "Enter a valid number");
-		if(number <= 0 || number > 99) 
+		if (number <= 0 || number > 99)
 			return Alert.alert("Invalid number !", "Enter a number between 1 and 99");
 
 		onPickNumber(number);
@@ -26,46 +28,38 @@ export const StartGameScreen = ({ onPickNumber }: Props) => {
 	const resetInput = () => {
 		setEnteredNumber("");
 	}
-	
+
 	return (
-		<View style={styles.container}>
-			<TextInput
-				style={styles.input}
-				keyboardType='number-pad'
-				maxLength={2}
-				value={enteredNumber}
-				onChangeText={onChange}
-			/>
-			<View style={styles.btnContainer}>
-				<View style={styles.btn}>
-					<Button onPress={resetInput}>Reset</Button>
+		<View style={styles.rootContainer}>
+			<Title title="Guess My Number" />
+			<Card>
+				<Text style={styles.titleInput}>Enter a number</Text>
+				<TextInput
+					style={styles.input}
+					keyboardType='number-pad'
+					maxLength={2}
+					value={enteredNumber}
+					onChangeText={onChange}
+				/>
+				<View style={styles.btnContainer}>
+					<View style={styles.btn}>
+						<Button onPress={resetInput}>Reset</Button>
+					</View>
+					<View style={styles.btn}>
+						<Button onPress={confirmInput}>Confirm</Button>
+					</View>
 				</View>
-				<View style={styles.btn}>
-					<Button onPress={confirmInput}>Confirm</Button>
-				</View>
-			</View>
+			</Card>
 		</View>
 	);
 
 }
 
 const styles = StyleSheet.create({
-	container: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: 16,
+	rootContainer: {
+		flex: 1,
 		marginTop: 100,
-		marginHorizontal: 24,
-		backgroundColor: Colors.primary800,
-		borderRadius: 8,
-		shadowColor: Colors.black,
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 6,
-		elevation: 5,
+		alignItems: "center"
 	},
 	input: {
 		height: 50,
@@ -82,5 +76,9 @@ const styles = StyleSheet.create({
 	},
 	btn: {
 		flex: 1
+	},
+	titleInput: {
+		color: Colors.white,
+		fontSize: 24
 	}
 })
